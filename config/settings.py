@@ -150,7 +150,7 @@ AWS_DEFAULT_ACL = None
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AUTH_USER_MODEL = 'users.CustomUsser'
+AUTH_USER_MODEL = 'users.CustomUser'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
