@@ -1,39 +1,33 @@
 {% extends "main/base.html" %}
 {% load static %}
 {% block content %}
-	<main>
-		<section class="hero_single version_1">
+
+		<section class="hero_single version_2">
 			<div class="wrapper">
 				<div class="container">
-					<h3>Every Review is an Experience!</h3>
-					<p>Check Ratings of Businesses, Read Reviews &amp; Buy</p>
-					<div class="row justify-content-center">
-						<div class="col-lg-9">
-						<form method="post" action="grid-listings-filterstop.html">
-							<div class="row g-0 custom-search-input-2">
-								<div class="col-lg-7">
+					<div class="row justify-content-center pt-lg-5">
+						<div class="col-xl-5 col-lg-6">
+							<h3>Every Review<br>is an Experience!</h3>
+							<p>Check Ratings of Businesses, Read Reviews &amp; Buy</p>
+							<form method="post" action="{% url 'businesslist' 'all' %}">
+								{% csrf_token %}
+								<div class="custom-search-input-2">
 									<div class="form-group">
-										<input class="form-control" type="text" placeholder="What are you looking for...">
+										<input class="form-control" type="text" value="" name="search_text" placeholder="What are you looking for...">
 										<i class="icon_search"></i>
 									</div>
-								</div>
-								<div class="col-lg-3">
-									<select class="wide">
-										<option>All Categories</option>
-										<option>Shops</option>
-										<option>Hotels</option>
-										<option>Restaurants</option>
-										<option>Bars</option>
-										<option>Events</option>
-										<option>Fitness</option>
+									<select class="wide" name="catergory">
+										<option value="all">All Categories</option>	
+										{% for x in catergories %}
+										<option value="{{x.name}}">{{x.name}}</option>
+										{% endfor %}
 									</select>
-								</div>
-								<div class="col-lg-2">
 									<input type="submit" value="Search">
 								</div>
-							</div>
-							<!-- /row -->
-						</form>
+							</form>
+						</div>
+						<div class="col-xl-5 col-lg-6 text-end d-none d-lg-block">
+							<img src="{% static 'main/img/graphic_home_2.svg' %}" alt="" class="img-fluid">
 						</div>
 					</div>
 				</div>
@@ -45,11 +39,12 @@
 			<div class="main_title_3">
 					<h2>Top Categories</h2>
 					<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
-					<a href="all-categories.html">View all</a>
+					<a href="{% url 'catergories' %}">View all</a>
 				</div>
 			<div class="row justify-content-center">
 				{% for x in catergories %}
-				<div class="col-lg-4 col-sm-6">
+			
+				<div class="col-lg-3 col-sm-6">
 					<a href="grid-listings-filterstop.html" class="grid_item">
 						<figure>
 							{% if x.picture %}
@@ -75,7 +70,7 @@
 			<div class="main_title_3">
 				<h2>Latest Reviews</h2>
 				<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
-				<a href="reviews-page.html">View all</a>
+				<a href="{% url 'businesslist' 'all' %}">View all</a>
 			</div>
 
 			<div id="reccomended" class="owl-carousel owl-theme">
@@ -123,7 +118,7 @@
 						
 						<ul class="clearfix">
 							<li><small>Published: {{x.created_at}}</small></li>
-							<li><a href="reviews-page.html" class="btn_1 small">Read review</a></li>
+							<li><a href="{% url 'business' x.business.id %}" class="btn_1 small">Read review</a></li>
 						</ul>
 					</div>
 				</div>
@@ -136,21 +131,24 @@
 		</div>
 		<!-- /bg_color_1 -->
 
-		<div class="call_section_3">
-			<div class="wrapper">
-				<div class="container clearfix">
-					<div class="col-lg-5 col-md-7 float-end">
+		<div class="call_section">
+			<div class="container margin_80_55">
+				<div class="row justify-content-center">
+					<div class="col-xl-5 col-lg-6">
+						<img alt="" class="img-fluid" src="{% static 'main/img/graphic_home_1.svg' %}">
+					</div>
+					<div class="col-xl-5 col-lg-6 pt-lg-5">
 						<h3>Let's Help You</h3>
 						<p>Vanno is a review platform open to everyone. Share your experiences to help others make better choices, and help companies up their game. Our mission is to bring people and companies together to create experiences for everyone.</p>
 						<p><a class="btn_1 add_top_10 wow bounceIn" href="pricing.html" data-wow-delay="0.5s">Join Vanno Now!</a></p>
 					</div>
 				</div>
-				<!-- /container -->
 			</div>
+			<!-- /container -->
 		</div>
 		<!-- /call_section -->
 
-	</main>
+
 	<!-- /main -->
 
 	{% endblock %}
