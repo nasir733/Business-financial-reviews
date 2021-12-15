@@ -54,13 +54,18 @@ def BusinessSingle(request, business_id):
     three_star = Review.objects.filter(business__id=business_id, rating=3)
     two_star = Review.objects.filter(business__id=business_id, rating=2)
     one_star = Review.objects.filter(business__id=business_id, rating=1)
-
-    context['five_star'] = len(five_star)/len(context['reviews'])*100
-    context['four_star'] = len(four_star)/len(context['reviews'])*100
-    context['three_star'] = len(three_star)/len(context['reviews'])*100
-    context['two_star'] = len(two_star)/len(context['reviews'])*100
-    context['one_star'] = len(one_star)/len(context['reviews'])*100
-
+    if len(context['reviews']) > 0:
+        context['five_star'] = len(five_star)/len(context['reviews'])*100
+        context['four_star'] = len(four_star)/len(context['reviews'])*100
+        context['three_star'] = len(three_star)/len(context['reviews'])*100
+        context['two_star'] = len(two_star)/len(context['reviews'])*100
+        context['one_star'] = len(one_star)/len(context['reviews'])*100
+    else:
+        context['five_star'] = 0
+        context['four_star'] = 0
+        context['three_star'] = 0
+        context['two_star'] = 0
+        context['one_star'] = 0
     return render(request, 'main/business_single.html', context)
 
 
