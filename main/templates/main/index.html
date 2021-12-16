@@ -45,7 +45,7 @@
 				{% for x in catergories %}
 			
 				<div class="col-lg-3 col-sm-6">
-					<a href="grid-listings-filterstop.html" class="grid_item">
+					<a href="{% url 'businesslist' x.name %}" class="grid_item">
 						<figure>
 							{% if x.picture %}
 							<img src="{{x.picture.url}}" alt=" ">
@@ -111,14 +111,14 @@
 
 
 								<em>{{x.rating}}/5</em></span>
-							<small>Shops</small>
+							<!-- <small>Shops</small> -->
 						</div>
 						<h3><strong>{{x.user.username}}</strong> reviewed <a href="reviews-page.html">{{x.business}}</a></h3>
 						<h4>"{{x.review}}"</h4>
 						
 						<ul class="clearfix">
 							<li><small>Published: {{x.created_at}}</small></li>
-							<li><a href="{% url 'business' x.business.id %}" class="btn_1 small">Read review</a></li>
+							<li><a href="{% url 'business' business_id=x.business.id page=1 %}" class="btn_1 small">Read review</a></li>
 						</ul>
 					</div>
 				</div>

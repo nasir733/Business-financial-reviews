@@ -1,0 +1,43 @@
+
+{% extends "users/base.html" %}
+{% load static %}
+{% block content %}
+  
+
+<nav id="menu" class="fake_menu"></nav>
+
+<div id="login">
+	<aside>
+		<figure>
+			<a href="/"><img src="{% static 'main/img/logo_sticky.png' %}" width="140" height="35" alt="" class="logo_sticky"></a>
+		</figure>
+		<div class="access_social">
+			<h4>Login As A Business</h4>
+		</div>
+	<div class="divider"><span></span></div>
+	<br/>
+	<br>
+		<form method="post" action="{%  url 'business-login' %}">
+			{% csrf_token %}
+		
+		
+			<div class="form-group">
+				<input class="form-control" type="email" name="email" placeholder="Email">
+				<i class="icon_mail_alt"></i>
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="password" name="password" id="password" placeholder="Password">
+				<i class="icon_lock_alt"></i>
+			</div>
+			
+			<div id="pass-info" class="clearfix"></div>
+			<button type="submit" class="btn_1 rounded full-width">Login</button>
+			<div class="text-center add_top_10">You don't have an acccount? <strong><a href="{% url 'business-register' %}">Register Now!</a></strong></div>
+		</form>
+		<div class="copy">© 2021 Vanno</div>
+	</aside>
+</div>
+<!-- /login -->
+
+<!-- COMMON SCRIPTS -->
+{% endblock  %}

@@ -1,0 +1,107 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block content %}
+
+
+		<div class="user_summary">
+			<div class="wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<figure>
+								{% if user.profile_pic %}
+									<img src="{{user.profile_pic.url}}" alt="">
+								{% else %}
+								<img src="{% static 'dashboard/images/user-profile.png' %}" alt="">
+								{% endif %}
+							</figure>
+							<h1>{{user.username}}</h1>
+							<span>{{user.email}}</span>
+							<br/>
+								<br/>
+								<a href="{% url 'dashboard' %}" class="btn_top">My Reviews</a>
+						</div>
+						<div class="col-md-6">
+							<ul>
+								<li>
+									<strong>{{reviews.count}}</strong>
+									<a href="#0" class="tooltips" data-bs-toggle="tooltip" data-placement="bottom" title="Reviews written by you"><i class="icon_star"></i> Reviews</a>
+								</li>
+								<!-- <li>
+									<strong>12</strong>
+									<a href="#0" class="tooltips" data-bs-toggle="tooltip" data-placement="bottom" title="Number of people who have read your reviews"><i class="icon-user-1"></i> Reads</a>
+								</li>
+								<li>
+									<strong>36</strong>
+									<a href="#0" class="tooltips" data-bs-toggle="tooltip" data-placement="bottom" title="Number of people who found your review useful"><i class="icon_like_alt"></i> Useful</a>
+								</li> -->
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- /container -->
+			</div>
+		</div>
+		<!-- /user_summary -->
+		<div class="container margin_60_35">
+			<div class="row">
+				<div class="col-lg-8">
+					<form method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
+						{% csrf_token %}
+					<div class="settings_panel">
+					    <h3>Personal settings</h3>
+					    <hr>
+						<!-- <div class="form-group">
+							<label>Edit Profile text</label>
+							<textarea class="form-control" style="height: 180px;" placeholder="Your profile"></textarea>
+						</div> -->
+						<div class="form-group">
+							<label>Edit Photo</label>
+							<div class="fileupload"><input type="file" name="profile_pic" accept="image/*"></div>
+						</div>
+						<div class="form-group">
+							<label>Edit Email</label>
+							<input class="form-control" value="{{user.email}}" name="email" type="email" placeholder="mark@domani.com">
+						</div>
+						<div class="form-group">
+							<label>Edit Username</label>
+							<input class="form-control" value="{{user.username}}" name="username" type="text" placeholder="Mark Steinberg">
+						</div>
+						
+						<p class="text-end"><button class="btn_1 small add_top_15" type="submit">Save personal info</button></p>
+					</div>
+					</form>
+					<!-- /settings_panel -->
+					<!-- <div class="settings_panel">
+					    <h3>Change password</h3>
+					    <hr>
+						<div class="form-group">
+							<label>Current Password</label>
+							<input class="form-control" type="password" id="password">
+						</div>
+						<div class="form-group">
+							<label>New Password</label>
+							<input class="form-control" type="password" id="password1">
+						</div>
+						<div class="form-group">
+							<label>Confirm Password</label>
+							<input class="form-control" type="password" id="password2">
+						</div>
+						<div id="pass-info" class="clearfix"></div>
+						<p class="text-end"><a class="btn_1 small" href="#0">Save password</a></p>
+					</div> -->
+					<!-- /settings_panel -->
+				</div>
+				<!-- /col -->
+				<!-- <div class="col-lg-4" id="sidebar">
+					<div class="box_general">
+						<h5>Delete account</h5>
+						<p>At nec senserit aliquando intellegat, et graece facilisis pro. Per in ridens sensibus interesset, eos ei nonumes incorrupte, iriure diceret an eos.</p>
+						<a href="#" class="btn_1 small">Delete account</a>
+					</div>
+				</div> -->
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	{% endblock %}

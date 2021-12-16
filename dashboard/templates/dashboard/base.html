@@ -34,94 +34,107 @@
 
 	<div id="page">
 
-	<header class="header menu_fixed">
-		<div id="logo">
-			<a href="/">
-				<img src="{% static 'main/img/logo.png' %}" width="140" height="35" alt="" class="logo_normal">
-				<img src="{% static 'main/img/logo_sticky.png' %}" width="140" height="35" alt="" class="logo_sticky">
-			</a>
-		</div>
-		<ul id="top_menu">
-            {% if user.is_authenticated %}
-                {% if user.user_type == "User" %}
-                <li><a href="{% url 'dashboard' %}" class="btn_top">Dashboard</a></li>
-                {% elif user.user_type == "Business" %}
-                <li><a href="{% url 'business:dashboard' %}" class="btn_top">Business Dashboard</a></li>
-                {% endif %}
-            {% else %}
-            <li><a href="{% url 'register' %}" class="btn_top">SignUp</a></li>
-			<li><a href="{% url 'business-register' %}" class="btn_top company">Sign Up For Business</a></li>
-			
-            {% endif %}
-			<li>
-                {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}" class="login" >Logout</a></li>
-                {% else %}
-                <a href="#sign-in-dialog" id="sign-in" class="login" title="Sign In">Sign In</a></li>
-                {% endif %}
-                
-		</ul>
-		<!-- /top_menu -->
-		<a href="#menu" class="btn_mobile">
-			<div class="hamburger hamburger--spin" id="hamburger">
-				<div class="hamburger-box">
-					<div class="hamburger-inner"></div>
-				</div>
+		<header class="header_in is_fixed menu_fixed">
+			<div id="logo">
+				<a href="/">
+					<img src="{% static 'main/img/logo.png' %}" width="140" height="35" alt="" class="logo_normal">
+					<img src="{% static 'main/img/logo_sticky.png' %}" width="140" height="35" alt="" class="logo_sticky">
+				</a>
 			</div>
-		</a>
-		<!-- /btn_mobile -->
-		<nav id="menu" class="main-menu">
-			<ul>
-				<li><span><a href="#0">Home</a></span>
-					
-				</li>
-				<!-- <li><span><a href="#0">Reviews</a></span>
-					<ul>
-						<li>
-							<span><a href="#0">Layouts</a></span>
-							<ul>
-								<li><a href="grid-listings-filterstop.html">Grid listings 1</a></li>
-								<li><a href="grid-listings-filterscol.html">Grid listings 2</a></li>
-								<li><a href="row-listings-filterscol.html">Row listings</a></li>
-							</ul>
-						</li>
-						<li><a href="reviews-page.html">Reviews page</a></li>
-						<li><a href="write-review.html">Write a review</a></li>
-						<li><a href="confirm.html">Confirm page</a></li>
-						<li><a href="user-dashboard.html">User Dashboard</a></li>
-						<li><a href="user-settings.html">User Settings</a></li>
-					</ul>
-				</li>
-				<li><span><a href="pricing.html">Pricing</a></span></li>
-				<li><span><a href="#0">Pages</a></span>
-					<ul>
-						<li><a href="companies-landing.html">Compannies Landing Page</a></li>
-						<li><a href="all-categories.html">Companies Categories Page</a></li>
-						<li><a href="category-companies-listings-filterstop.html">Companies Listing Page</a></li>
-						<li><a href="blog.html">Blog</a></li>
-						<li><a href="login.html">Login</a></li>
-						<li><a href="register.html">Register</a></li>
-						<li><a href="about.html">About</a></li>
-						<li><a href="help.html">Help Section</a></li>
-						<li><a href="faq.html">Faq Section</a></li>
-						<li><a href="contacts.html">Contacts</a></li>
-						<li>
-							<span><a href="#0">Icon Packs</a></span>
-							<ul>
-								<li><a href="icon-pack-1.html">Icon pack 1</a></li>
-								<li><a href="icon-pack-2.html">Icon pack 2</a></li>
-								<li><a href="icon-pack-3.html">Icon pack 3</a></li>
-								<li><a href="icon-pack-4.html">Icon pack 4</a></li>
-							</ul>
-						</li>
-						<li><a href="404.html">404 page</a></li>
-					</ul>
-				</li> -->
-				<li><span><a href="{% url 'businesslist' 'all' %}">Companies</a></span></li>
-				<li class="d-block d-sm-none"><span><a href="{% url 'login' %}" class="btn_top">Login</a></span></li>
+			<ul id="top_menu">
+				{% if user.is_authenticated %}
+					{% if user.user_type == "User" %}
+					<li><a href="{% url 'dashboard' %}" class="btn_top">Dashboard</a></li>
+					{% elif user.user_type == "Business" %}
+					<li><a href="{% url 'business:dashboard' %}" class="btn_top">Business Dashboard</a></li>
+					{% endif %}
+				{% else %}
+				<li><a href="{% url 'register' %}" class="btn_top">SignUp</a></li>
+				<li><a href="{% url 'business-register' %}" class="btn_top company">Sign Up For Business</a></li>
+				
+            	{% endif %}
+				<li><a href="{% url 'register' %}" class="btn_top company">Sign Up For Business</a></li>
+				<li>
+					{% if user.is_authenticated %}
+					<a href="{% url 'logout' %}" class="login" >Logout</a></li>
+					{% else %}
+					<a href="#sign-in-dialog" id="sign-in" class="login" title="Sign In">Sign In</a></li>
+					{% endif %}
+					<li>
+						<div class="dropdown dropdown-user">
+							<a href="#0" class="logged" data-bs-toggle="dropdown"><img src="img/avatar4.jpg" alt=""></a>
+							<div class="dropdown-menu">
+								<ul>
+									<li><a href="user-dashboard.html">My Reviews</a></li>
+									<li><a href="user-settings.html">My Settings</a></li>
+									<li><a href="#0">Log Out</a></li>
+								</ul>
+							</div>
+						</div>
+					</li>
 			</ul>
-		</nav>
-	</header>
+			<!-- /top_menu -->
+			<a href="#menu" class="btn_mobile">
+				<div class="hamburger hamburger--spin" id="hamburger">
+					<div class="hamburger-box">
+						<div class="hamburger-inner"></div>
+					</div>
+				</div>
+			</a>
+			<!-- /btn_mobile -->
+			<nav id="menu" class="main-menu">
+				<ul>
+					<li><span><a href="#0">Home</a></span>
+						
+					</li>
+					<!-- <li><span><a href="#0">Reviews</a></span>
+						<ul>
+							<li>
+								<span><a href="#0">Layouts</a></span>
+								<ul>
+									<li><a href="grid-listings-filterstop.html">Grid listings 1</a></li>
+									<li><a href="grid-listings-filterscol.html">Grid listings 2</a></li>
+									<li><a href="row-listings-filterscol.html">Row listings</a></li>
+								</ul>
+							</li>
+							<li><a href="reviews-page.html">Reviews page</a></li>
+							<li><a href="write-review.html">Write a review</a></li>
+							<li><a href="confirm.html">Confirm page</a></li>
+							<li><a href="user-dashboard.html">User Dashboard</a></li>
+							<li><a href="user-settings.html">User Settings</a></li>
+						</ul>
+					</li>
+					<li><span><a href="pricing.html">Pricing</a></span></li>
+					<li><span><a href="#0">Pages</a></span>
+						<ul>
+							<li><a href="companies-landing.html">Compannies Landing Page</a></li>
+							<li><a href="all-categories.html">Companies Categories Page</a></li>
+							<li><a href="category-companies-listings-filterstop.html">Companies Listing Page</a></li>
+							<li><a href="blog.html">Blog</a></li>
+							<li><a href="login.html">Login</a></li>
+							<li><a href="register.html">Register</a></li>
+							<li><a href="about.html">About</a></li>
+							<li><a href="help.html">Help Section</a></li>
+							<li><a href="faq.html">Faq Section</a></li>
+							<li><a href="contacts.html">Contacts</a></li>
+							<li>
+								<span><a href="#0">Icon Packs</a></span>
+								<ul>
+									<li><a href="icon-pack-1.html">Icon pack 1</a></li>
+									<li><a href="icon-pack-2.html">Icon pack 2</a></li>
+									<li><a href="icon-pack-3.html">Icon pack 3</a></li>
+									<li><a href="icon-pack-4.html">Icon pack 4</a></li>
+								</ul>
+							</li>
+							<li><a href="404.html">404 page</a></li>
+						</ul>
+					</li> -->
+					<li><span><a href="{% url 'businesslist' 'all' %}">Companies</a></span></li>
+					<li class="d-block d-sm-none"><span><a href="{% url 'login' %}" class="btn_top">Login</a></span></li>
+				</ul>
+			</nav>
+			<!-- /container -->		
+		</header>
 	<!-- /header -->
     <main>
 {% block content %}

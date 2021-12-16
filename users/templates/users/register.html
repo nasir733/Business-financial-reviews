@@ -1,0 +1,46 @@
+
+{% extends "users/base.html" %}
+	{% load static %}
+	{% block content %}
+	  
+	
+	<nav id="menu" class="fake_menu"></nav>
+	
+	<div id="login">
+		<aside>
+			<figure>
+				<a href="index.html"><img src="{% static 'main/img/logo_sticky.png' %}" width="140" height="35" alt="" class="logo_sticky"></a>
+			</figure>
+			<div class="access_social">
+					<h4>Register For Leave Reviews</h4>
+				</div>
+            <div class="divider"><span></span></div>
+			<br/>
+			<br>
+			<form autocomplete="off" method="post" action="{%  url 'register' %}">
+				{% csrf_token %}
+				<div class="form-group">
+					<input class="form-control" name="username" type="text" placeholder="First Name">
+					<i class="ti-user"></i>
+				</div>
+			
+				<div class="form-group">
+					<input class="form-control" type="email" name="email" placeholder="Email">
+					<i class="icon_mail_alt"></i>
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="password" name="password" id="password" placeholder="Password">
+					<i class="icon_lock_alt"></i>
+				</div>
+				
+				<div id="pass-info" class="clearfix"></div>
+				<button type="submit" class="btn_1 rounded full-width">Register Now!</button>
+				<div class="text-center add_top_10">Already have an acccount? <strong><a href="{% url 'login' %}">Sign In</a></strong></div>
+			</form>
+			<div class="copy">© 2021 Vanno</div>
+		</aside>
+	</div>
+	<!-- /login -->
+	
+	<!-- COMMON SCRIPTS -->
+	{% endblock  %}

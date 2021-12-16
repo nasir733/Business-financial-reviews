@@ -5,6 +5,7 @@ from reviews.models import Review
 # Create your views here.
 from django.db.models import Avg
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage
 
 
 def HomePage(request):
@@ -43,10 +44,16 @@ def BusinessList(request, catergory="all"):
     return render(request, 'main/business_list.html', context)
 
 
-def BusinessSingle(request, business_id):
+def BusinessSingle(request, business_id, page=1):
     context = {}
+    reviews = Review.objects.filter(business__id=business_id)
+    paginator = Paginator(reviews, 10)
     context['business'] = BusinessProfile.objects.get(id=business_id)
-    context['reviews'] = Review.objects.filter(business__id=business_id)
+    try:
+        context['reviews'] = paginator.page(page)
+    except EmptyPage:
+        # if we exceed the page limit we return the last page
+        context['reviews'] = paginator.page(paginator.num_pages)
     context['avg_rating'] = Review.objects.filter(
         business__id=business_id).aggregate(Avg('rating'))
     five_star = Review.objects.filter(business__id=business_id, rating=5)
