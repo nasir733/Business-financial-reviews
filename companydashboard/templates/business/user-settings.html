@@ -1,0 +1,123 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block content %}
+
+
+		<div class="container margin_60_35">
+			<div class="row">
+				<div class="col-lg-8">
+					<form method="post" action="{% url 'business:edit_profile' %}" enctype="multipart/form-data">
+						{% csrf_token %}
+					<div class="settings_panel">
+					    <h3>Update Business Profile</h3>
+					    <hr>
+						<!-- <div class="form-group">
+							<label>Edit Profile text</label>
+							<textarea class="form-control" style="height: 180px;" placeholder="Your profile"></textarea>
+						</div> -->
+						<div class="form-group">
+							<label>User Name</label>
+							<input class="form-control" value="{{user.username}}" name="username" type="text" placeholder="User Name" >
+							
+						</div>
+					
+						<div class="form-group">
+							<label>Email</label>
+
+							<input class="form-control" value="{{business.user.email}}" type="email" name="email" placeholder="Email" >
+							
+						</div>
+						
+						<div class="form-group">
+							<label>Business Name</label>
+
+							<input class="form-control" value="{{business.name}}" name="business_name" type="text" placeholder="Business Name" >
+							
+						</div>
+					
+						<div class="form-group">
+							<label>Business Email</label>
+
+							<input class="form-control" value="{{business.email}}" name="business_email" type="email" placeholder="Business Email" >
+							
+						</div>
+						<div class="form-group">
+							<label>Business Description</label>
+
+		<input class="form-control" value="{{business.description}}" type="text" name="description" style="height: 180px;"></input>
+						</div>
+						<div class="form-group">
+							<label>Business Phone</label>
+
+							<input class="form-control" value="{{business.phone}}" name="phone" type="tel" placeholder="Phone Number" >
+							
+						</div>
+						<div class="form-group">
+							<label>Business Address</label>
+
+							<input class="form-control" value="{{business.address}}" name="address" type="text" placeholder="Address" >
+							
+						</div>
+						<div class="form-group">							
+							
+							<label>Business Website</label>
+
+
+							<input class="form-control" value="{{business.website}}" name="website" type="url" value="" >
+							
+						</div>
+						<div class="form-gsroup">
+							<select class="form-control" value="{{business.catergory.id}}" name="catergory"  >
+								<option value="">Select Business Type</option>
+								{% for x in request.session.catergories %}
+									<option value="{{x.id}}">{{x.name}}</option>
+								{% endfor %}
+							</select>
+							
+						</div>
+						<div class="form-group">
+							<small>Upload Logo</small>
+							<input class="form-control" name="image" type="file"  accept="image/*" >
+							
+						</div>
+						
+						<p class="text-end"><button class="btn_1 small add_top_15" type="submit">Save personal info</button></p>
+					</div>
+					
+					<!-- /settings_panel -->
+					<div class="settings_panel">
+					    <h3>Update Social Links</h3>
+					    <hr>
+						<div class="form-group">
+							<label>Facebook</label>
+							<input class="form-control" value="{{business.facebook}}" type="url" name="facebook" >
+						</div>
+						<div class="form-group">
+							<label>Twitter</label>
+							<input class="form-control" value="{{business.twitter}}" type="url" name="twitter" >
+						</div>
+						<div class="form-group">
+							<label>Instagram</label>
+							<input class="form-control" value="{{business.instagram}}" type="url" name="instagram" >
+						</div>
+						<div id="pass-info" class="clearfix"></div>
+						<p class="text-end"><button class="btn_1 small add_top_15" type="submit">Save</button></p>
+					</div>
+					<!-- /settings_panel -->
+				</form>
+				</div>
+
+				
+				<!-- /col -->
+				<!-- <div class="col-lg-4" id="sidebar">
+					<div class="box_general">
+						<h5>Delete account</h5>
+						<p>At nec senserit aliquando intellegat, et graece facilisis pro. Per in ridens sensibus interesset, eos ei nonumes incorrupte, iriure diceret an eos.</p>
+						<a href="#" class="btn_1 small">Delete account</a>
+					</div>
+				</div> -->
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	{% endblock %}

@@ -46,7 +46,7 @@
                 {% if user.user_type == "User" %}
                 <li><a href="{% url 'dashboard' %}" class="btn_top">Dashboard</a></li>
                 {% elif user.user_type == "Business" %}
-                <li><a href="{% url 'business:dashboard' %}" class="btn_top">Business Dashboard</a></li>
+                <li><a href="{% url 'business:dashboard' page=1 %}" class="btn_top">Business Dashboard</a></li>
                 {% endif %}
             {% else %}
             <li><a href="{% url 'register' %}" class="btn_top">SignUp</a></li>

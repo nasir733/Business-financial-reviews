@@ -1,0 +1,228 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block content %}
+
+		<div class="reviews_summary">
+			<div class="wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8">
+							<figure>
+								{% if business.image %}
+								<img src="{{business.image.url}}" alt="{{ business.name }}">
+								{% else %}
+									<img src="{% static 'main/images/business_single_img.jpg' %}" alt="{{ business.name }}">
+								{% endif %}
+								
+							</figure>
+							<small>{{business.catergory.name}}</small>
+							<h1>{{business.name}}</h1>
+
+							
+							<span class="rating"> 
+								{% if business.avg_rating >= 5 %}
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										{% elif business.avg_rating >= 4 %}
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										{% elif business.avg_rating >= 3 %}
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										{% elif business.avg_rating >= 2 %}
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										{% elif business.avg_rating >= 1 %}
+										
+										<i class="icon_star"></i>
+										
+										{% endif %}
+
+								<em>{{business.avg_rating}}/5</em>
+								
+								Based on {{reviews.count}} reviews</span>
+
+								<br/>
+								<br/>
+								<a href="{% url 'business:edit_profile' %}" class="btn_top">Update Business Profile</a>
+						</div>
+						<div class="col-lg-4 review_detail">
+							<div class="row">
+								<div class="col-lg-9 col-9">
+									<div class="progress">
+										<div class="progress-bar" role="progressbar" style="width: {{five_star}}%" aria-valuenow="{{five_star}}" aria-valuemin="0" aria-valuemax="100"></div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-3 text-end"><strong>5 stars</strong></div>
+							</div>
+							<!-- /row -->
+							<div class="row">
+								<div class="col-lg-9 col-9">
+									<div class="progress">
+										<div class="progress-bar" role="progressbar" style="width: {{four_star}}%" aria-valuenow="{{four_star}}" aria-valuemin="0" aria-valuemax="100"></div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-3 text-end"><strong>4 stars</strong></div>
+							</div>
+							<!-- /row -->
+							<div class="row">
+								<div class="col-lg-9 col-9">
+									<div class="progress">
+										<div class="progress-bar" role="progressbar" style="width: {{three_star}}%" aria-valuenow="{{three_star}}" aria-valuemin="0" aria-valuemax="100"></div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-3 text-end"><strong>3 stars</strong></div>
+							</div>
+							<!-- /row -->
+							<div class="row">
+								<div class="col-lg-9 col-9">
+									<div class="progress">
+										<div class="progress-bar" role="progressbar" style="width: {{two_star}}%" aria-valuenow="{{two_star}}" aria-valuemin="0" aria-valuemax="100"></div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-3 text-end"><strong>2 stars</strong></div>
+							</div>
+							<!-- /row -->
+							<div class="row">
+								<div class="col-lg-9 col-9">
+									<div class="progress last">
+										<div class="progress-bar" role="progressbar" style="width: {{one_star}}%" aria-valuenow="{{one_star}}" aria-valuemin="0" aria-valuemax="100"></div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-3 text-end"><strong>1 stars</strong></div>
+							</div>
+							<!-- /row -->
+						</div>
+					</div>
+				</div>
+				<!-- /container -->
+			</div>
+		</div>
+		<!-- /reviews_summary -->
+		
+		<div class="container margin_60_35">
+			<div class="row">
+				<div class="col-lg-8">
+					{% for x in reviews %}
+					<!-- /review_card -->
+					<div class="review_card">
+						<div class="row">
+							<div class="col-md-2 user_info">
+								
+								<figure>
+									{% if x.user.profile_pic %}
+									<img src="{{x.user.profile_pic.url}}" alt="">
+									{% else %}
+										<img src="{% static 'main/images/user_avatar.png' %}" alt="">
+									{% endif %}
+								</figure>
+								<h5>{{x.user.username}}</h5>
+							</div>
+							<div class="col-md-10 review_content">
+								<div class="clearfix add_bottom_15">
+									<span class="rating">
+										{% if x.rating == 1 %}
+										
+										<i class="icon_star"></i>
+										{% elif x.rating == 2 %}
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										{% elif x.rating == 3 %}
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										{% elif x.rating == 4 %}
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										{% elif x.rating == 5 %}
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										{% elif x.rating > 5 %}
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										{% endif %}
+		
+		
+										<em>{{x.rating}}/5</em></span>
+									<em>Published {{x.created_at}}</em>
+								</div>
+								<h4>"{{x.review}}"</h4>
+								<p>{{x.content}}</p>
+								<!-- <ul>
+									<li><a href="#0"><i class="icon_like_alt"></i><span>Useful</span></a></li>
+									<li><a href="#0"><i class="icon_dislike_alt"></i><span>Not useful</span></a></li>
+									<li><span>Share</span> <a href="#0"><i class="ti-facebook"></i></a> <a href="#0"><i class="ti-twitter-alt"></i></a> <a href="#0"><i class="ti-google"></i></a></li>
+								</ul> -->
+							</div>
+						</div>
+						<!-- /row -->
+					</div>
+					<!-- /review_card -->
+					{% endfor %}
+					<!-- /review_card -->
+					<div class="pagination__wrapper add_bottom_15">
+						<ul class="pagination">
+							<li class="{% if not reviews.has_previous %} disabled {% endif %}"><a href="{% if reviews.has_previous %} {% url 'business' business_id=business.id  page=reviews.previous_page_number %}{% endif %} " class="prev" title="previous page">Previous</a></li>
+
+							{% if reviews.number|add:'-1' > 1 %}
+							<li><a  >&hellip;</a></li>
+						{% endif %}
+						{% for i in reviews.paginator.page_range %}
+							{% if reviews.number == i %}
+								<li class="active  disabled"><a class="page-link" href="#">{{ i }}</a></li>
+							{% elif i > reviews.number|add:'-2' and i < users.number|add:'2' %}
+								<li class=""><a class="page-link" href="{% url 'business' business_id=business.id page=i %}">{{ i }}</a></li>
+							{% endif %}
+						{% endfor %}
+						
+						{% if reviews.paginator.num_pages > reviews.number|add:'1' %}
+						<li class="page-item disabled"><a class="page-link" href="#">&hellip;</a></li>
+					{% endif %}
+			  
+							
+						
+					<li class="page-item {% if not reviews.has_next %} disabled {% endif %}">
+						<a class="page-link" href="{% if reviews.has_next %} {% url 'business' business_id=business.id page=reviews.next_page_number %} {% endif %}">Next</a>
+					</li>
+						</ul>
+					</div>
+					<!-- /pagination -->
+				</div>
+				<!-- /col -->
+				<div class="col-lg-4">
+					<div class="box_general company_info">
+						<h3>{{business.name}}</h3>
+						<p>{{business.description}}</p>
+						<p><strong>Address</strong><br>{{business.address}}</p>
+						{% if business.website == "#" %}
+						
+						{% else %}
+						<p><strong>Website</strong><br><a href="{{business.website}}">{{business.website}}</a></p>
+						{% endif %}
+						<p><strong>Email</strong><br><a href="mailto:{{business.email}}" type="email">{{business.email}}</a></p>
+						<p><strong>Telephone</strong><br>{{business.phone}}</p>
+						<p class="follow_company"><strong>Follow us</strong><br>
+							<a href="{{business.facebook}}"><i class="social_facebook_circle"></i></a>
+							<a href="{{business.twitter}}"><i class="social_twitter_circle"></i></a>
+							<a href="{{business.instagram}}"><i class="social_instagram_circle"></i></a></p>
+					</div>
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	{% endblock %}
