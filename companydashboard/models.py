@@ -25,5 +25,8 @@ class BusinessProfile(models.Model):
     image = models.ImageField(upload_to='business_profiles/')
     avg_rating = models.FloatField(default=0)
 
+    class Meta:
+        ordering = ['-avg_rating']
+
     def __str__(self):
         return self.name
