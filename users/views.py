@@ -24,7 +24,7 @@ def login(request):
                 if request.user.user_type == 'Business':
                     return redirect('business:dashboard')
                 else:
-                    return redirect('home')
+                    return redirect('dashboard')
             else:
                 return redirect('login')
         else:
@@ -46,7 +46,15 @@ def register(request):
             user = User.objects.create_user(
                 username=username, email=email, password=password, user_type='User')
             user.save()
-            return redirect('home')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                auth_login(request, user)
+                if request.user.user_type == 'Business':
+                    return redirect('business:dashboard')
+                else:
+                    return redirect('dashboard')
+            else:
+                return redirect('login')
     return render(request, 'users/register.html')
 
 
@@ -64,11 +72,11 @@ def businesslogin(request):
                 if request.user.user_type == 'Business':
                     return redirect('business:dashboard')
                 else:
-                    return redirect('home')
+                    return redirect('dashboard')
             else:
-                return redirect('login')
+                return redirect('business-login')
         else:
-            return redirect('login')
+            return redirect('business-login')
     return render(request, 'users/business-login.html')
 
 
@@ -95,7 +103,15 @@ def businessregister(request):
                 user=user, name=business_name, email=business_email, catergory=catergory, image=image)
             user.save()
 
-            return redirect('home')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                auth_login(request, user)
+                if request.user.user_type == 'Business':
+                    return redirect('business:dashboard')
+                else:
+                    return redirect('dashboard')
+            else:
+                return redirect('business-register')
     return render(request, 'users/business-register.html')
 
 
