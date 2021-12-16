@@ -22,7 +22,8 @@ class BusinessProfile(models.Model):
         max_length=200, default='#', blank=True, null=True)
 
     catergory = models.ForeignKey(Catergory, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='business_profiles/')
+    image = models.ImageField(
+        upload_to='business_profiles/', default='default2.png')
     avg_rating = models.FloatField(default=0)
 
     class Meta:

@@ -1,4 +1,4 @@
-{% extends "main/base.html" %}
+{% extends "dashboard/base.html" %}
 {% load static %}
 {% block content %}
 
@@ -169,9 +169,29 @@
 								</ul> -->
 							</div>
 						</div>
+							{% for z in x.reviewcomment_set.all %}
+						<div class="row reply">
+							<div class="col-md-2 user_info">
+								{% if z.user.profile_pic %}
+									<img src="{{z.user.profile_pic.url}}" alt="">
+									{% else %}
+										<img src="{% static 'main/images/user_avatar.png' %}" alt="">
+									{% endif %}
+							</div>
+							<div class="col-md-10">
+								<div class="review_content">
+									<strong>Reply from {{x.user.username}}</strong>
+									<em>Published {{x.created_at}}</em>
+									<p>{{x.review}}</p>
+								</div>
+							</div>
+						</div>{% endfor %}
 						<!-- /row -->
 					</div>
 					<!-- /review_card -->
+					
+					
+					
 					{% endfor %}
 					<!-- /review_card -->
 					<div class="pagination__wrapper add_bottom_15">
