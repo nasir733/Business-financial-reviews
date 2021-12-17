@@ -6,7 +6,7 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('logout/', logout, name='logout'),
     path('register/', register, name='register'),
-    path('business-register/', businessregister, name='business-register'),
-    path('business-login/', businesslogin, name='business-login'),
+    path('create-your-business/', businessregister, name='business-register'),
+
 
 ]

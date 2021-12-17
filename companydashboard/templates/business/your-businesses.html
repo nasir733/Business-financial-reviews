@@ -1,0 +1,149 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block content %}
+
+<main style="margin-top: 4rem;">
+		<div id="results">
+		   <div class="container">
+			   <div class="row justify-content-between">
+				   <div class="col-lg-3 col-md-4 col-10">
+					   <h1><strong>{{businesses.count}}</strong> Your Businesses</h1>
+				   </div>
+				   <div class="col-xl-5 col-md-6 col-2"><form method="post" action="{% url 'business:your_businesses' %}">
+					{% csrf_token %}
+					   <a href="#0" class="search_mob btn_search_mobile"></a> <!-- /open search panel -->
+						<div class="row g-0 custom-search-input-2 inner">
+							
+								
+							<div class="col-lg-7">
+								<div class="form-group">
+									<input class="form-control" type="text" value="" name="search_text"  placeholder="Search reviews for a company">
+									<i class="icon_search"></i>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<select class="wide" name="catergory">
+									<option value="all">All Categories</option>	
+									{% for x in catergories %}
+									<option value="{{x.name}}">{{x.name}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div class="col-xl-1 col-lg-1">
+								<input type="submit" value="Search">
+							</div>
+							
+						</div></form>
+				   </div>
+			   </div>
+			   <!-- /row -->
+				<div class="search_mob_wp">
+					<div class="custom-search-input-2">
+						<div class="form-group">
+							<input class="form-control" type="text" placeholder="Search reviews...">
+							<i class="icon_search"></i>
+						</div>
+						<div class="form-group">
+							<input class="form-control" type="text" placeholder="Where">
+							<i class="icon_pin_alt"></i>
+						</div>
+						<select class="wide">
+							<option>All Categories</option>	
+							<option>Shops</option>
+							<option>Hotels</option>
+							<option>Restaurants</option>
+							<option>Bars</option>
+							<option>Events</option>
+							<option>Fitness</option>
+						</select>
+						<input type="submit" value="Search">
+					</div>
+				</div>
+				<!-- /search_mobile -->
+		   </div>
+		   <!-- /container -->
+	   </div>
+	   <!-- /results -->
+		
+		<div class="container margin_60_35">
+			<a href="{% url 'business-register' %}" class="btn_top">Create Your Business</a>
+			<br/>
+			<br/>
+			<div class="row">
+			
+				<!-- /aside -->
+
+				<div class="col-lg-9">
+					
+					<div class="isotope-wrapper">
+						
+						<div class="row">
+							{% for x in businesses %}
+							<div class="col-6 isotope-item latest">
+								<div class="review_listing">
+									<div class="clearfix add_bottom_15">
+										{% if x.image %}
+										<figure><img src="{{x.image.url}}" alt=""></figure>
+										{% else %}
+										<figure><img src="{% static 'img/avatar1.jpg' %}" alt=""></figure>
+										{% endif %}
+										<span class="rating"> 
+											{% if x.avg_rating >= 5 %}
+													<i class="icon_star"></i>
+													<i class="icon_star"></i>
+													<i class="icon_star"></i>
+													<i class="icon_star"></i>
+													<i class="icon_star"></i>
+													{% elif x.avg_rating >= 4 %}
+													<i class="icon_star"></i>
+													<i class="icon_star"></i>
+													<i class="icon_star"></i>
+													<i class="icon_star"></i>
+													{% elif x.avg_rating >= 3 %}
+													<i class="icon_star"></i>
+													<i class="icon_star"></i>
+													<i class="icon_star"></i>
+													{% elif x.avg_rating >= 2 %}
+													<i class="icon_star"></i>
+													<i class="icon_star"></i>
+													{% elif x.avg_rating >= 1 %}
+													
+													<i class="icon_star"></i>
+													
+													{% endif %}
+			
+											<em>{{x.avg_rating}}/5</em>
+											
+											Based on {{x.review_set.all.count}} reviews</span>
+			
+										
+										<small>{{x.catergory.name}}</small>
+									</div>
+								
+									<h4>{{x.name}}</h4>
+									<p>{{x.description}}</p>
+									<ul class="clearfix">
+										<li><a href="{{x.website}}" class=" small">{{x.website}}</a></li>
+										<li><a href="{% url 'business:dashboard' name=x.name page=1 %}" class="btn_1 small">View Your Business</a></li>
+									</ul>
+								</div>
+							</div>
+							{% endfor %}
+							<!-- /review_listing grid -->
+
+				
+						</div>
+						<!-- /row -->
+						</div>
+						<!-- /isotope-wrapper -->
+
+						<!-- <p class="text-center"><a href="#0" class="btn_1 rounded add_top_15">Load more</a></p> -->
+
+				</div>
+				<!-- /col -->
+			</div>		
+		</div>
+		<!-- /container -->
+
+</main>	
+{% endblock %}

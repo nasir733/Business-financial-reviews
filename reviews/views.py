@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import *
 from companydashboard.models import *
 from django.db.models import Avg
@@ -27,3 +27,15 @@ def add_review(request, business_id):
         print(rating)
         return render(request, 'reviews/review_added.html', {'review': review})
     return render(request, 'reviews/write-review.html', context)
+
+
+@login_required(login_url='login')
+def add_comment(request, review_id):
+    review = Review.objects.get(id=review_id)
+    if request.method == 'POST':
+        comment = ReviewComment.objects.create(
+            review=review,
+            user=request.user,
+            comment=request.POST['comment']
+        )
+        return redirect('business', business_id=review.business.id, page=1)

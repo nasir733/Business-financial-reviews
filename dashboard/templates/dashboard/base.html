@@ -43,35 +43,39 @@
 			</div>
 			<ul id="top_menu">
 				{% if user.is_authenticated %}
-                {% if user.user_type == "User" %}
+                
                 <li><a href="{% url 'dashboard' %}" class="btn_top">Dashboard</a></li>
-                {% elif user.user_type == "Business" %}
-                <li><a href="{% url 'business:dashboard' page=1 %}" class="btn_top">Business Dashboard</a></li>
-                {% endif %}
+                
             {% else %}
             <li><a href="{% url 'register' %}" class="btn_top">SignUp</a></li>
-			<li><a href="{% url 'business-register' %}" class="btn_top company">Sign Up For Business</a></li>
 			
             {% endif %}
 
 				<li>
 					{% if user.is_authenticated %}
 					<a href="{% url 'logout' %}" class="login" >Logout</a></li>
+					
 					{% else %}
 					<a href="#sign-in-dialog" id="sign-in" class="login" title="Sign In">Sign In</a></li>
 					{% endif %}
+					{% if user.is_authenticated %}
+
 					<li>
 						<div class="dropdown dropdown-user">
 							<a href="#0" class="logged" data-bs-toggle="dropdown"><img src="img/avatar4.jpg" alt=""></a>
 							<div class="dropdown-menu">
 								<ul>
-									<li><a href="user-dashboard.html">My Reviews</a></li>
-									<li><a href="user-settings.html">My Settings</a></li>
+									<li><a href="{% url 'dashboard' %}">My Reviews</a></li>
+									<li><a href="{% url 'business:your_businesses' %}">My Businesses</a></li>
+
+									<li><a href="{% url 'edit_profile' %}">My Settings</a></li>
 									<li><a href="#0">Log Out</a></li>
 								</ul>
 							</div>
 						</div>
 					</li>
+					{% endif %}
+					<li></li>
 			</ul>
 			<!-- /top_menu -->
 			<a href="#menu" class="btn_mobile">
@@ -232,7 +236,7 @@
 					<ul id="additional_links">
 						<li><a href="#0">Terms and conditions</a></li>
 						<li><a href="#0">Privacy</a></li>
-						<li><span>© 2021 Vanno</span></li>
+						<li><span>© 2021 Business Financial Reviews</span></li>
 					</ul>
 				</div>
 			</div>

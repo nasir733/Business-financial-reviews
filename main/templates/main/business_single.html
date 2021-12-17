@@ -169,24 +169,28 @@
 								</ul> -->
 							</div>
 						</div>
+						<div style="padding-left: 3rem;">
 							{% for z in x.reviewcomment_set.all %}
 						<div class="row reply">
-							<div class="col-md-2 user_info">
+							<div class="col-md-1 user_info">
+								<figure>
 								{% if z.user.profile_pic %}
 									<img src="{{z.user.profile_pic.url}}" alt="">
 									{% else %}
 										<img src="{% static 'main/images/user_avatar.png' %}" alt="">
-									{% endif %}
+									{% endif %}</figure>
 							</div>
 							<div class="col-md-10">
+								
 								<div class="review_content">
-									<strong>Reply from {{x.user.username}}</strong>
-									<em>Published {{x.created_at}}</em>
-									<p>{{x.review}}</p>
+									<strong>Reply from {{z.user.username}}</strong>
+									<em>Published {{z.created_at}}</em>
+									<p>{{z.comment}}</p>
 								</div>
 							</div>
+							
 						</div>{% endfor %}
-						<!-- /row -->
+						<!-- /row --></div>
 					</div>
 					<!-- /review_card -->
 					

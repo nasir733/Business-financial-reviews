@@ -12,10 +12,12 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage
 
 
-@login_required(login_url='business-login')
-def dashboard(request, page=1):
+@login_required(login_url='login')
+def dashboard(request, name, page=1):
     context = {}
-    business_id = request.user.businessprofile.id
+
+    business_id = BusinessProfile.objects.filter(
+        name=name, user=request.user).first().id
     reviews = Review.objects.filter(business__id=business_id)
     paginator = Paginator(reviews, 10)
     context['business'] = BusinessProfile.objects.get(id=business_id)
@@ -47,15 +49,16 @@ def dashboard(request, page=1):
 
 
 @login_required(login_url='login')
-def EditProfile(request):
+def EditProfile(request, name):
     context = {}
     context['reviews'] = Review.objects.filter(user=request.user)
-    context['business'] = request.user.businessprofile
+    context['business'] = BusinessProfile.objects.filter(
+        name=name, user=request.user).first()
     context['user'] = request.user
     if request.method == 'POST' or request.method == "FILES":
         print(request.POST)
         user = request.user
-        business = BusinessProfile.objects.get(user=user)
+        business = BusinessProfile.objects.get(name=name, user=user)
         user.username = request.POST['username']
         user.email = request.POST['email']
         business.name = request.POST['business_name']
@@ -78,5 +81,28 @@ def EditProfile(request):
             business.image = image
         user.save()
         business.save()
-        return redirect('business:dashboard', page=1)
+        return redirect('business:dashboard', name=name, page=1)
     return render(request, 'business/user-settings.html', context)
+
+
+@login_required(login_url='login')
+def YourBusiness(request):
+    context = {}
+    context['catergories'] = Catergory.objects.all()
+    if request.method == 'POST':
+        search_text = request.POST['search_text']
+        catergory_s = request.POST['catergory']
+
+        if catergory_s == "all":
+            context['businesses'] = BusinessProfile.objects.filter(Q(
+                name__icontains=search_text) | Q(description__icontains=search_text), user=request.user)
+        else:
+            context['businesses'] = BusinessProfile.objects.filter(Q(
+                name__icontains=search_text) | Q(description__icontains=search_text), catergory__name=catergory_s, user=request.user)
+        return render(request, 'business/your-businesses.html', context)
+    if BusinessProfile.objects.filter(user=request.user).exists():
+        context['businesses'] = BusinessProfile.objects.filter(
+            user=request.user)
+    else:
+        return redirect('business-register')
+    return render(request, 'business/your-businesses.html', context)

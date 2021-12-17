@@ -19,7 +19,7 @@ class Review(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return self.review
+        return "{} {} - {}".format(self.review, self.rating, self.user.username)
 
 
 class ReviewComment(models.Model):
@@ -33,4 +33,4 @@ class ReviewComment(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return self.comment
+        return "{} - {}".format(self.comment, self.user.username)

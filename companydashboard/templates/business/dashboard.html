@@ -50,7 +50,7 @@
 
 								<br/>
 								<br/>
-								<a href="{% url 'business:edit_profile' %}" class="btn_top">Update Business Profile</a>
+								<a href="{% url 'business:edit_profile' business.name %}" class="btn_top">Update Business Profile</a>
 						</div>
 						<div class="col-lg-4 review_detail">
 							<div class="row">
@@ -111,7 +111,7 @@
 				<div class="col-lg-8">
 					{% for x in reviews %}
 					<!-- /review_card -->
-					<div class="review_card">
+					<div class="review_card {{x.id}}">
 						<div class="row">
 							<div class="col-md-2 user_info">
 								
@@ -162,14 +162,50 @@
 								</div>
 								<h4>"{{x.review}}"</h4>
 								<p>{{x.content}}</p>
-								<!-- <ul>
-									<li><a href="#0"><i class="icon_like_alt"></i><span>Useful</span></a></li>
-									<li><a href="#0"><i class="icon_dislike_alt"></i><span>Not useful</span></a></li>
-									<li><span>Share</span> <a href="#0"><i class="ti-facebook"></i></a> <a href="#0"><i class="ti-twitter-alt"></i></a> <a href="#0"><i class="ti-google"></i></a></li>
-								</ul> -->
+								<ul>
+									
+									<li><a onclick="Reply({{x.id}})"><i class="icon-reply-3"></i> Reply</a></li>
+								</ul>
+								<form method="post" action="{% url 'add_comment' x.id %}" id="replyform {{x.id}}" style="display: none;">
+									{% csrf_token %}
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label>Your Review</label>
+												<input class="form-control" id="review{{x.id}}" name="comment" ></input>
+											</div>
+										</div>
+									</div>
+									
+								</form>
 							</div>
 						</div>
+						<div style="padding-left: 3rem;">
+							{% for z in x.reviewcomment_set.all %}
+						<div class="row reply">
+							<div class="col-md-1 user_info">
+								<figure>
+								{% if z.user.profile_pic %}
+									<img src="{{z.user.profile_pic.url}}" alt="">
+									{% else %}
+										<img src="{% static 'main/images/user_avatar.png' %}" alt="">
+									{% endif %}</figure>
+							</div>
+							<div class="col-md-10">
+								
+								<div class="review_content">
+									<strong>Reply from {{z.user.username}}</strong>
+									<em>Published {{z.created_at}}</em>
+									<p>{{z.comment}}</p>
+								</div>
+							</div>
+							
+						</div>{% endfor %}
+
+						<!-- /row --></div>
+						
 						<!-- /row -->
+						<br/>
 					</div>
 					<!-- /review_card -->
 					{% endfor %}
@@ -225,4 +261,18 @@
 			<!-- /row -->
 		</div>
 		<!-- /container -->
+
+		<script>
+			
+			function Reply(review_id) {
+				console.log(review_id);
+				const targetDiv = document.getElementById(`replyform ${review_id}`);
+				console.log(targetDiv);
+			if (targetDiv.style.display !== "none") {
+				targetDiv.style.display = "none";
+			} else {
+				targetDiv.style.display = "block";
+			}
+			};
+		</script>
 	{% endblock %}

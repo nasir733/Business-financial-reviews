@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from catergory.models import Catergory
 from companydashboard.models import BusinessProfile
 from reviews.models import Review
@@ -45,10 +45,13 @@ def BusinessList(request, catergory="all"):
 
 
 def BusinessSingle(request, business_id, page=1):
+
     context = {}
     reviews = Review.objects.filter(business__id=business_id)
     paginator = Paginator(reviews, 10)
     context['business'] = BusinessProfile.objects.get(id=business_id)
+    if context['business'].user.id == request.user.id:
+        return redirect('business:dashboard', name=context['business'].name, page=page)
     try:
         context['reviews'] = paginator.page(page)
     except EmptyPage:

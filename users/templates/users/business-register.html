@@ -1,68 +1,63 @@
 
-{% extends "users/base.html" %}
+{% extends "dashboard/base.html" %}
 	{% load static %}
 	{% block content %}
-	  
-	
-	<nav id="menu" class="fake_menu"></nav>
-	
-	<div id="login">
-		<aside>
-			<figure>
-				<a href="/"><img src="{% static 'main/img/logo_sticky.png' %}" width="140" height="35" alt="" class="logo_sticky"></a>
-			</figure>
-			<div class="access_social">
-					<h4>Register As A Business</h4>
-				</div>
-            <div class="divider"><span></span></div>
-			<br/>
-			<br>
-			<form autocomplete="off" method="post" action="{%  url 'business-register' %}" enctype="multipart/form-data">
-				{% csrf_token %}
-				<div class="form-group">
-					<input class="form-control" name="username" type="text" placeholder="User Name" required>
-					<i class="ti-user"></i>
-				</div>
-			
-				<div class="form-group">
-					<input class="form-control" type="email" name="email" placeholder="Email" required>
-					<i class="icon_mail_alt"></i>
-				</div>
-				<div class="form-group">
-					<input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
-					<i class="icon_lock_alt"></i>
-				</div>
-				<div class="form-group">
-					<input class="form-control" name="business_name" type="text" placeholder="Business Name" required>
-					<i class="ti-user"></i>
-				</div>
-			
-				<div class="form-group">
-					<input class="form-control" name="business_email" type="email" placeholder="Business Email" required>
-					<i class="ti-user"></i>
-				</div>
-				<div class="form-group">
-					<select class="form-control" name="catergory" type="email" placeholder="Business Email" required>
-						<option >Select Business Type</option>
-						{% for x in request.session.catergories %}
-							<option value="{{x.id}}">{{x.name}}</option>
-						{% endfor %}
-					</select>
+
+	<div class="container margin_60_35">
+		<div class="row">
+			<div class="col-lg-8">
+				<form method="post" action="{%  url 'business-register' %}" enctype="multipart/form-data">
+					{% csrf_token %}
+				<div class="box_general write_review">
+					<h1>Create Your Business</h1>
 					
+					<!-- /rating_submit -->
+					<div class="form-group">
+						<input class="form-control" name="business_name" type="text" placeholder="Business Name" required>
+						
+					</div>
+				
+					<div class="form-group">
+						<input class="form-control" name="business_email" type="email" placeholder="Business Email" required>
+						
+					</div>
+					<div class="form-group">
+						<select class="form-control" name="catergory" type="email" placeholder="Business Email" required>
+							<option >Select Business Type</option>
+							{% for x in request.session.catergories %}
+								<option value="{{x.id}}">{{x.name}}</option>
+							{% endfor %}
+						</select>
+						
+					</div>
+					<div class="form-group">
+						<small>Upload Logo</small>
+						<input class="form-control" name="image" type="file"  accept="image/*" required>
+						
+					</div>
+				
+					<!-- <div class="form-group">
+						<label>Add your photo (optional)</label>
+						<div class="fileupload"><input type="file" name="fileupload" accept="image/*"></div>
+					</div> -->
+					<!-- <div class="form-group">
+						<div class="checkboxes float-start add_bottom_15 add_top_15">
+							<label class="container_check">Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.
+								<input type="checkbox">
+								<span class="checkmark"></span>
+							</label>
+						</div>
+					</div> -->
+					<button type="submit" class="btn_1">Create</button>
 				</div>
-				<div class="form-group">
-					<small>Upload Logo</small>
-					<input class="form-control" name="image" type="file"  accept="image/*" required>
-					
-				</div>
-			
-				<div id="pass-info" class="clearfix"></div>
-				<button type="submit" class="btn_1 rounded full-width">Register Now!</button>
-				<div class="text-center add_top_10">Already have an acccount? <strong><a href="{% url 'business-login' %}">Sign In</a></strong></div>
 			</form>
-			<div class="copy">© 2021 Vanno</div>
-		</aside>
+			</div>
+			<!-- /col -->
+			
+		</div>
+		<!-- /row -->
 	</div>
+
 	<!-- /login -->
 	
 	<!-- COMMON SCRIPTS -->

@@ -6,7 +6,7 @@ User = get_user_model()
 
 
 class BusinessProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
     email = models.EmailField(max_length=100)
