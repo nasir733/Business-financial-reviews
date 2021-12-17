@@ -13,13 +13,13 @@ class BusinessProfile(models.Model):
     phone = models.CharField(max_length=100)
     address = models.CharField(max_length=300, blank=True, null=True)
     website = models.URLField(
-        max_length=200, default='#', blank=True, null=True)
+        max_length=200, default=' ', blank=True, null=True)
     facebook = models.URLField(
-        max_length=200, default='#', blank=True, null=True)
+        max_length=200, default=' ', blank=True, null=True)
     twitter = models.URLField(
-        max_length=200, default='#', blank=True, null=True)
+        max_length=200, default=' ', blank=True, null=True)
     instagram = models.URLField(
-        max_length=200, default='#', blank=True, null=True)
+        max_length=200, default=' ', blank=True, null=True)
 
     catergory = models.ForeignKey(Catergory, on_delete=models.CASCADE)
     image = models.ImageField(
