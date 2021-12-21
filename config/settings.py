@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'catergory',
     'storages',
     'main',
+    'rest_framework',
+    'api',
 
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -137,7 +139,13 @@ AWS_STORAGE_BUCKET_NAME = 'business-financial-reviews'
 AWS_SES_REGION_NAME = 'us-east-1'  # (ex: us-east-2)
 AWS_SES_REGION_ENDPOINT = 'email.us-east-1.amazonaws.com'
 
-
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_DEFAULT_ACL = None
 

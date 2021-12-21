@@ -7,7 +7,7 @@ User = get_user_model()
 
 class BusinessProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,unique=True)
     description = models.TextField(max_length=500)
     email = models.EmailField(max_length=100)
     phone = models.CharField(max_length=100)
