@@ -7,6 +7,7 @@ class CatergorySerializer(ModelSerializer):
         fields = '__all__'
         
 class BusinessSerializer(ModelSerializer):
+    category = CatergorySerializer(many=False, read_only=True)
     class Meta:
         model = BusinessProfile
         fields = '__all__'
