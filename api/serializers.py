@@ -7,7 +7,7 @@ class CatergorySerializer(ModelSerializer):
         fields = '__all__'
         
 class BusinessSerializer(ModelSerializer):
-    catergory = CatergorySerializer(many=False, read_only=True)
+    catergory = CatergorySerializer(many=False, read_only=False)
     class Meta:
         model = BusinessProfile
         exclude = ('id',)
