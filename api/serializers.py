@@ -10,6 +10,7 @@ class BusinessSerializer(ModelSerializer):
     catergory = CatergorySerializer(many=False, read_only=True)
     class Meta:
         model = BusinessProfile
+        fields = '__all__'
         
     def create(self,validated_data):
         category = Catergory.objects.get(name=validated_data['catergory'].name)
