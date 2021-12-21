@@ -8,9 +8,9 @@ User = get_user_model()
 class BusinessProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100,unique=True)
-    description = models.TextField(max_length=500)
-    email = models.EmailField(max_length=100)
-    phone = models.CharField(max_length=100)
+    description = models.TextField(max_length=500, null=True,blank=True)
+    email = models.EmailField(max_length=100, null=True,blank=True)
+    phone = models.CharField(max_length=100, null=True,blank=True)
     address = models.CharField(max_length=300, blank=True, null=True)
     website = models.URLField(
         max_length=200, default=' ', blank=True, null=True)
@@ -23,8 +23,8 @@ class BusinessProfile(models.Model):
 
     catergory = models.ForeignKey(Catergory, on_delete=models.CASCADE)
     image = models.ImageField(
-        upload_to='business_profiles/', default='default2.png')
-    avg_rating = models.FloatField(default=0)
+        upload_to='business_profiles/', default='default2.png',null=True,blank=True)
+    avg_rating = models.FloatField(default=0,null=True,blank=True)
     employee_count = models.CharField(null=True,blank=True,max_length=100)
     city = models.CharField(max_length=100, blank=True, null=True)
     country = models.CharField(max_length=100, blank=True, null=True)
