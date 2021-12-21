@@ -11,4 +11,4 @@ class BusinessSerializer(ModelSerializer):
     class Meta:
         model = BusinessProfile
         exclude = ('id',)
-        read_only_fields =('catergory')
+        read_only_fields =("catergory",)
