@@ -25,7 +25,13 @@ class BusinessProfile(models.Model):
     image = models.ImageField(
         upload_to='business_profiles/', default='default2.png')
     avg_rating = models.FloatField(default=0)
-
+    employee_count = models.CharField(null=True,blank=True,max_length=100)
+    city = models.CharField(max_length=100, blank=True, null=True)
+    country = models.CharField(max_length=100, blank=True, null=True)
+    postal_code = models.CharField(max_length=100, blank=True, null=True)
+    score = models.CharField(max_length=100, blank=True, null=True)
+    sales = models.CharField(max_length=100, blank=True, null=True)
+    state  = models.CharField(max_length=100, blank=True, null=True)
     class Meta:
         ordering = ['-avg_rating']
 
