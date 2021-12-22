@@ -49,8 +49,9 @@ class BusinessApiView(APIView):
         user = CustomUser.objects.get(id=request.data.get('user'))
         state = request.data.get('state')
         catergory = Catergory.objects.filter(name=categoryName).first()
-        lead = BusinessProfile.objects.filter(catergory=catergory, name=name, description=description, email=email, phone=phone, address=address, website=website, facebook=facebook, twitter=twitter,
-                                              instagram=instagram, image=image, avg_rating=avg_rating, employee_count=employee_count, city=city, country=country, postal_code=postal_code, score=score, sales=sales, state=state, user=user).exists
+        lead = BusinessProfile.objects.filter(
+            name=name,).exists()
+        print(lead)
         if not lead:
             if Catergory.objects.filter(name=categoryName).exists():
                 print('Inside If Statement')
@@ -61,7 +62,7 @@ class BusinessApiView(APIView):
             else:
                 print('Inside Else Statement')
                 createNewCategory = Catergory.objects.create(
-                    name=categoryName, description=description, image=image)
+                    name=categoryName, description=description, picture=image)
                 lead = BusinessProfile.objects.create(catergory=createNewCategory, name=name, description=description, email=email, phone=phone,    address=address, website=website, facebook=facebook, twitter=twitter,
                                                       instagram=instagram, image=image, avg_rating=avg_rating, employee_count=employee_count, city=city, country=country, postal_code=postal_code, score=score, sales=sales, state=state, user=user)
                 lead.save()
