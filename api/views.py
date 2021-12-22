@@ -56,7 +56,7 @@ class BusinessApiView(APIView):
             if Catergory.objects.filter(name=categoryName).exists():
                 print('Inside If Statement')
                 lead = BusinessProfile.objects.create(catergory=catergory, name=name, description=description, email=email, phone=phone,    address=address, website=website, facebook=facebook, twitter=twitter,
-                                                      instagram=instagram, image=image, avg_rating=avg_rating, employee_count=employee_count, city=city, country=country, postal_code=postal_code, score=score, sales=sales, state=state, user=user)
+                                                      instagram=instagram, avg_rating=avg_rating, employee_count=employee_count, city=city, country=country, postal_code=postal_code, score=score, sales=sales, state=state, user=user)
                 lead.save()
                 print('lead is saved ')
             else:
@@ -64,7 +64,7 @@ class BusinessApiView(APIView):
                 createNewCategory = Catergory.objects.create(
                     name=categoryName, description=description, picture=image)
                 lead = BusinessProfile.objects.create(catergory=createNewCategory, name=name, description=description, email=email, phone=phone,    address=address, website=website, facebook=facebook, twitter=twitter,
-                                                      instagram=instagram, image=image, avg_rating=avg_rating, employee_count=employee_count, city=city, country=country, postal_code=postal_code, score=score, sales=sales, state=state, user=user)
+                                                      instagram=instagram, avg_rating=avg_rating, employee_count=employee_count, city=city, country=country, postal_code=postal_code, score=score, sales=sales, state=state, user=user)
                 lead.save()
             return Response({'message': 'Lead created successfully', 'lead': lead.name}, status=status.HTTP_201_CREATED)
         else:
