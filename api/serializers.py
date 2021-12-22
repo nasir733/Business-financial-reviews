@@ -13,7 +13,9 @@ class BusinessSerializer(ModelSerializer):
         fields = '__all__'
         
     def create(self,validated_data):
-        category = Catergory.objects.filter(name=validated_data['catergory'].name).first()
-        business = BusinessProfile.objects.create(**validated_data, catergory=category)
+        category = Catergory.objects.filter(name=validated_data['catergory'].name).exists()
+        if category:
+            business = BusinessProfile.objects.create(**validated_data, catergory=category)
+        business = BusinessProfile.objects.create(**validated_data)
         return business
         
