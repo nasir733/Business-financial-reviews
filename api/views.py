@@ -9,6 +9,7 @@ from companydashboard.models import BusinessProfile
 from users.models import CustomUser
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.pagination import PageNumberPagination
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -21,6 +22,7 @@ class BusinessViewSet(viewsets.ModelViewSet):
     queryset = BusinessProfile.objects.all()
     serializer_class = BusinessSerializer
     permission_classes = []
+    pagination_class = PageNumberPagination
 
 
 class BusinessApiView(APIView):
