@@ -226,11 +226,11 @@
 {% if paginatedBusinesses.has_other_pages %}
   <ul class="pagination">
     {% if paginatedBusinesses.has_previous %}
-      <li><a href="?page={{ paginatedBusinesses.previous_page_number }}">&laquo;</a></li>
+      <li class="page-item active"><a class="page-link"  href="?page={{ paginatedBusinesses.previous_page_number }}"> &laquo; </a></li>
     {% else %}
       <li class="disabled"><span>&laquo;</span></li>
     {% endif %}
-    {% for i in paginatedBusinesses.paginator.page_range %}
+    {% for i in paginatedBusinesses.number|page_window:paginatedBusinesses.paginator.num_pages %}
 	<li class="page-item {% if i == page_obj.number %}active{% endif %}">
 		<a class="page-link" href="?page={{ i }}">
 			{{ i }} 
@@ -246,7 +246,7 @@
       {% endif %} -->
     {% endfor %}
     {% if users.has_next %}
-      <li><a href="?page={{ paginatedBusinesses.next_page_number }}">&raquo;</a></li>
+      <li class="page-item active"><as class="page-link" href="?page={{ paginatedBusinesses.next_page_number }}">&raquo;</as></li>
     {% else %}
       <li class="disabled"><span>&raquo;</span></li>
     {% endif %}
