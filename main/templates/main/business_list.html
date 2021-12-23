@@ -161,7 +161,7 @@
 		<div class="container margin_60_35">
 			
 			<div class="isotope-wrapper">
-				{% for x in businesses %}
+				{% for x in paginatedBusinesses %}
 				<div class="company_listing isotope-item high">
 					<div class="row">
 						<div class="col-md-9">
@@ -223,7 +223,27 @@
 			</div>
 			<!-- /isotope-wrapper -->
 			
-			<p class="text-center"><a href="#0" class="btn_1 rounded add_top_15">Load more</a></p>
+{% if paginatedBusinesses.has_other_pages %}
+  <ul class="pagination">
+    {% if paginatedBusinesses.has_previous %}
+      <li><a href="?page={{ paginatedBusinesses.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in paginatedBusinesses.paginator.page_range %}
+      {% if users.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if users.has_next %}
+      <li><a href="?page={{ paginatedBusinesses.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
 			
 		</div>
 		<!-- /container -->

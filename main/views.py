@@ -6,6 +6,7 @@ from reviews.models import Review
 from django.db.models import Avg
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def HomePage(request):
@@ -19,6 +20,7 @@ def HomePage(request):
 
 def BusinessList(request, catergory="all"):
     context = {}
+    page = request.GET.get('page', 1)
     if request.method == "POST":
         search_text = request.POST['search_text']
         catergory_s = request.POST['catergory']
@@ -35,12 +37,16 @@ def BusinessList(request, catergory="all"):
         return render(request, 'main/business_list.html', context)
     if catergory == "all":
         context['businesses'] = BusinessProfile.objects.all()
+
     else:
         context['businesses'] = BusinessProfile.objects.filter(
             catergory__name=catergory)
     context['catergory'] = catergory
     context['results'] = len(context['businesses'])
     context['catergories'] = Catergory.objects.all()
+    paginator = Paginator(context['businesses'], 10)
+    context['paginatedBusinesses'] = paginator.page(page)
+
     return render(request, 'main/business_list.html', context)
 
 
