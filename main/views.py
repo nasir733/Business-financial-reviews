@@ -8,6 +8,20 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from django import template
+
+register = template.Library()
+
+
+@register.filter
+def page_window(page, last, size=7):
+    if page < size // 2 + 1:
+        # remember the range function won't
+        return range(1, min(size+1, last + 1))
+        # include the upper bound in the output
+    else:
+        return range(page - size // 2, min(last + 1, page + 1 + size // 2))
+
 
 def HomePage(request):
     context = {}
