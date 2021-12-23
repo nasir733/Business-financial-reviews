@@ -34,6 +34,7 @@ def BusinessList(request, catergory="all"):
         context['catergory'] = catergory_s
         context['results'] = len(context['businesses'])
         context['catergories'] = Catergory.objects.all()
+        context["page"] = int(page.strip()),
         return render(request, 'main/business_list.html', context)
     if catergory == "all":
         context['businesses'] = BusinessProfile.objects.all()

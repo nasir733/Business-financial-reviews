@@ -223,7 +223,7 @@
 			</div>
 			<!-- /isotope-wrapper -->
 			
-{% if paginatedBusinesses.has_other_pages %}
+<!-- {% if paginatedBusinesses.has_other_pages %}
   <ul class="pagination">
     {% if paginatedBusinesses.has_previous %}
       <li><a href="?page={{ paginatedBusinesses.previous_page_number }}">&laquo;</a></li>
@@ -243,7 +243,25 @@
       <li class="disabled"><span>&raquo;</span></li>
     {% endif %}
   </ul>
+{% endif %} -->
+
+
+{% if paginatedBusinesses.has_previous %}
+<li class="page-item">
+  <a class="page-link" href="/businesslist/{{catergory}}/{{page |sub:1}}/" tabindex="-1">Previous</a>
+  <li class="page-item"><a class="page-link" href="/businesslist/{{catergory}}/{{page |sub:1}}/">{{page|sub:1}}</a></li>
+</li>
 {% endif %}
+
+{% if paginatedBusinesses.has_next  %}
+<li class="page-item">
+  
+<li class="page-item"><a class="page-link active" href="#">{{page}}</a></li>
+<li class="page-item"><a class="page-link" href="/businesslist/{{catergory}}/{{page |add:1}}/">{{page|add:1}}</a></li>
+  <a class="page-link" href="/businesslist/{{catergory}}/{{page |add:1}}/">Next</a>
+</li>
+{% endif %}
+
 			
 		</div>
 		<!-- /container -->
