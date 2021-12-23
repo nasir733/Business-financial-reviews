@@ -23,5 +23,7 @@ urlpatterns = [
     path('reviews/', include('reviews.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('business-dashboard/', include('companydashboard.urls')),
-    path('api/',include("api.urls")),
+    path('api/', include("api.urls")),
+    path('__debug__/', include('debug_toolbar.urls')),
+
 ]

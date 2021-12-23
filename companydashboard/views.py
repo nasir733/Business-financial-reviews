@@ -33,8 +33,10 @@ def dashboard(request, name, page=1):
     three_star = Review.objects.filter(business__id=business_id, rating=3)
     two_star = Review.objects.filter(business__id=business_id, rating=2)
     one_star = Review.objects.filter(business__id=business_id, rating=1)
+
+
     if len(context['reviews']) > 0:
-        context['five_star'] = len(five_star)/len(context['reviews'])*100
+        context['five_star'] = len(five_star)/len(context['reviews']) * 100
         context['four_star'] = len(four_star)/len(context['reviews'])*100
         context['three_star'] = len(three_star)/len(context['reviews'])*100
         context['two_star'] = len(two_star)/len(context['reviews'])*100
@@ -48,7 +50,7 @@ def dashboard(request, name, page=1):
     return render(request, 'business/dashboard.html', context)
 
 
-@login_required(login_url='login')
+@ login_required(login_url='login')
 def EditProfile(request, name):
     context = {}
     context['reviews'] = Review.objects.filter(user=request.user)
@@ -85,7 +87,7 @@ def EditProfile(request, name):
     return render(request, 'business/user-settings.html', context)
 
 
-@login_required(login_url='login')
+@ login_required(login_url='login')
 def YourBusiness(request):
     context = {}
     context['catergories'] = Catergory.objects.all()

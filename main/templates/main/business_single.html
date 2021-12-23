@@ -53,6 +53,8 @@
 								<a href="{% url 'add_review' business.id %}" class="btn_top">Write A Review</a>
 						</div>
 						<div class="col-lg-4 review_detail">
+							{% if five_star > 0  %}
+						
 							<div class="row">
 								<div class="col-lg-9 col-9">
 									<div class="progress">
@@ -61,7 +63,9 @@
 								</div>
 								<div class="col-lg-3 col-3 text-end"><strong>5 stars</strong></div>
 							</div>
+							{% endif %}
 							<!-- /row -->
+							{% if four_star > 0  %}
 							<div class="row">
 								<div class="col-lg-9 col-9">
 									<div class="progress">
@@ -70,7 +74,9 @@
 								</div>
 								<div class="col-lg-3 col-3 text-end"><strong>4 stars</strong></div>
 							</div>
+							{% endif %}
 							<!-- /row -->
+							{% if three_star > 0  %}
 							<div class="row">
 								<div class="col-lg-9 col-9">
 									<div class="progress">
@@ -79,7 +85,9 @@
 								</div>
 								<div class="col-lg-3 col-3 text-end"><strong>3 stars</strong></div>
 							</div>
+							{% endif %}
 							<!-- /row -->
+							{% if two_star > 0  %}
 							<div class="row">
 								<div class="col-lg-9 col-9">
 									<div class="progress">
@@ -88,7 +96,9 @@
 								</div>
 								<div class="col-lg-3 col-3 text-end"><strong>2 stars</strong></div>
 							</div>
+							{% endif %}
 							<!-- /row -->
+							{% if one_star > 0  %}
 							<div class="row">
 								<div class="col-lg-9 col-9">
 									<div class="progress last">
@@ -97,6 +107,7 @@
 								</div>
 								<div class="col-lg-3 col-3 text-end"><strong>1 stars</strong></div>
 							</div>
+							{% endif %}
 							<!-- /row -->
 						</div>
 					</div>
