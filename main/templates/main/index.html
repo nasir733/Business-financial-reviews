@@ -47,9 +47,9 @@
 				<div class="col-lg-3 col-sm-6">
 					<a href="{% url 'businesslist' x.name %}" class="grid_item">
 						<figure>
-							{% if x.picture %}
-							<img src="{{x.picture.url}}" alt=" ">
-							{% endif %}
+							
+							<img src="https://source.unsplash.com/1600x900/?{{x.name}}" alt=" ">
+							
 							<div class="info">
 								<small>{{x.description}}</small>
 								<!-- <em><i class="icon-comment"></i> 356 Reviews</em> -->
