@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     "debug_toolbar",
-
+    'mathfilters',
     'django_seed',
 
 
