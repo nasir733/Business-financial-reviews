@@ -31,9 +31,12 @@ def BusinessList(request, catergory="all"):
         else:
             context['businesses'] = BusinessProfile.objects.filter(Q(
                 name__icontains=search_text) | Q(description__icontains=search_text), catergory__name=catergory_s)
-        context['catergory'] = catergory_s
+        context['catergory'] = catergory
         context['results'] = len(context['businesses'])
         context['catergories'] = Catergory.objects.all()
+        paginator = Paginator(context['businesses'], 10)
+        context['paginatedBusinesses'] = paginator.page(page)
+        context["page"] = int(str(page).strip())
 
         return render(request, 'main/business_list.html', context)
     if catergory == "all":
