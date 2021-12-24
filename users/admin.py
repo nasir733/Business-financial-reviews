@@ -11,6 +11,7 @@ class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     model = CustomUser
     list_display = ['username', 'email']
+    search_fields = ['username', 'email']
     fieldsets = (
         (
             (('User'), {
