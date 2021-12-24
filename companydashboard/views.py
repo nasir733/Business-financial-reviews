@@ -19,9 +19,11 @@ def dashboard(request, name, page=1):
     business_id = BusinessProfile.objects.filter(
         name=name, user=request.user).first().id
     reviews = Review.objects.filter(business__id=business_id)
+    context['reviews_count'] = reviews.count()
     paginator = Paginator(reviews, 10)
     context['business'] = BusinessProfile.objects.get(id=business_id)
     try:
+
         context['reviews'] = paginator.page(page)
     except EmptyPage:
         # if we exceed the page limit we return the last page
@@ -33,7 +35,6 @@ def dashboard(request, name, page=1):
     three_star = Review.objects.filter(business__id=business_id, rating=3)
     two_star = Review.objects.filter(business__id=business_id, rating=2)
     one_star = Review.objects.filter(business__id=business_id, rating=1)
-
 
     if len(context['reviews']) > 0:
         context['five_star'] = len(five_star)/len(context['reviews']) * 100

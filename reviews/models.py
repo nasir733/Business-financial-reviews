@@ -9,7 +9,7 @@ User = get_user_model()
 class Review(models.Model):
     business = models.ForeignKey(BusinessProfile, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    review = models.CharField(max_length=500)
+    review = models.CharField(max_length=500,blank=True,null=True)
     content = models.TextField(blank=True, null=True)
     rating = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
