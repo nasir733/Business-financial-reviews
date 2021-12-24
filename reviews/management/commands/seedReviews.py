@@ -6,6 +6,8 @@ from users.models import CustomUser as User
 from reviews.models import Review, ReviewComment
 from companydashboard.models import BusinessProfile
 
+from django.db.models import Avg
+
 
 class Command(BaseCommand):
 
@@ -41,7 +43,13 @@ class Command(BaseCommand):
                 # 'nickname': lambda x: reviews_seeder.faker.email(),
 
             })
+
             reviews_seeder.execute()
+            avg_rating = Review.objects.filter(
+                business__id=businessProfiles.id).aggregate(Avg('rating'))
+            rating = round(float(avg_rating['rating__avg']), 2)
+            businessProfiles.avg_rating = rating
+            businessProfiles.save()
             self.stdout.write(self.style.SUCCESS(f"Everything seeded"))
         else:
 
