@@ -6,9 +6,9 @@ from .models import *
 
 
 class BusinessProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'name', 'email']
-    list_filter = ['user', 'name', 'email']
-    search_fields = ['user', 'name', 'email']
+    list_display = ['name', 'user',  'email']
+    list_filter = ['name', 'user',  'email']
+    search_fields = ['name', 'user',  'email']
 
 
 admin.site.register(BusinessProfile, BusinessProfileAdmin)

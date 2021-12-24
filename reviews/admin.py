@@ -10,7 +10,7 @@ from .models import *
 
 
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ['user', 'business', 'rating']
+    list_display = ['business', 'user', 'rating']
 
     search_fields = ['review', 'rating', 'user']
 
