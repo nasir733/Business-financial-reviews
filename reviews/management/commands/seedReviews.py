@@ -22,8 +22,7 @@ class Command(BaseCommand):
         reviews_seeder.add_entity(Review, 100, {
             'business': lambda x: random.choice(businessProfiles),
             'user': lambda x: random.choice(users),
-            'review': "",
-            'content': "",
+  
             'rating': lambda x: random.randint(3, 5),
 
             # 'nickname': lambda x: reviews_seeder.faker.email(),
