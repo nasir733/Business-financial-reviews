@@ -7,6 +7,13 @@ from django.db.models import Avg
 
 
 @login_required(login_url='login')
+def deletereview_detail(request, review_id):
+    review = Review.objects.get(id=review_id)
+    review.delete()
+    return redirect('dashboard')
+
+
+@login_required(login_url='login')
 def add_review(request, business_id):
     context = {}
     business = BusinessProfile.objects.get(id=business_id)

@@ -102,9 +102,9 @@
 		
 		
 										<em>{{x.rating}}/5</em></span>
-									<li><a onclick="Reply({{x.id}})"><i class="icon-reply-3"></i> Reply</a></li>
+									<li><a class="btn_delete" href="{% url 'deletereview_detail' x.id %}"><i class="icon-trash"></i> Delete</a></li>
 								</ul>
-								<form method="post" action="{% url 'add_comment' x.id %}" id="replyform {{x.id}}" style="display: none;">
+								<!-- <form method="post" action="{% url 'add_comment' x.id %}" id="replyform {{x.id}}" style="display: none;">
 									{% csrf_token %}
 									<div class="row">
 										<div class="col-md-12">
@@ -115,7 +115,7 @@
 										</div>
 									</div>
 									
-								</form>
+								</form> -->
 							</div>
 						</div>
 						<div style="padding-left: 3rem;">
