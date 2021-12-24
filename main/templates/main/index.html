@@ -75,6 +75,54 @@
 
 			<div id="reccomended" class="owl-carousel owl-theme">
 				{% for x in reviews %}
+				{% if x.review == None %}
+				<div class="item">
+					<div class="review_listing">
+						<div class="clearfix">
+							<figure><img src="img/avatar1.jpg" alt=""></figure>
+							<span class="rating" style="transform: scale(1.5);">
+								{% if x.rating == 1 %}
+								
+								<i class="icon_star"></i>
+								{% elif x.rating == 2 %}
+								<i class="icon_star"></i>
+								<i class="icon_star"></i>
+								{% elif x.rating == 3 %}
+								<i class="icon_star"></i>
+								<i class="icon_star"></i>
+								<i class="icon_star"></i>
+								{% elif x.rating == 4 %}
+								<i class="icon_star"></i>
+								<i class="icon_star"></i>
+								<i class="icon_star"></i>
+								<i class="icon_star"></i>
+								{% elif x.rating == 5 %}
+								<i class="icon_star"></i>
+								<i class="icon_star"></i>
+								<i class="icon_star"></i>
+								<i class="icon_star"></i>
+								<i class="icon_star"></i>
+								{% elif x.rating > 5 %}
+								<i class="icon_star"></i>
+								<i class="icon_star"></i>
+								<i class="icon_star"></i>
+								<i class="icon_star"></i>
+								<i class="icon_star"></i>
+								{% endif %}
+
+
+								<em>{{x.rating}}/5</em></span>
+							<!-- <small>Shops</small> -->
+						</div>
+						<h3><strong>{{x.user.username}}</strong> reviewed <a href="reviews-page.html">{{x.business}}</a></h3>
+					
+						<ul class="clearfix">
+							
+							<li><a href="{% url 'business' business_id=x.business.id page=1 %}" class="btn_1 small">Read review</a></li>
+						</ul>
+					</div>
+				</div>
+				{% else %}
 				<div class="item">
 					<div class="review_listing">
 						<div class="clearfix">
@@ -117,11 +165,12 @@
 						<h4>"{{x.review}}"</h4>
 						
 						<ul class="clearfix">
-							<li><small>Published: {{x.created_at}}</small></li>
+						
 							<li><a href="{% url 'business' business_id=x.business.id page=1 %}" class="btn_1 small">Read review</a></li>
 						</ul>
 					</div>
 				</div>
+				{% endif %}
 				{% endfor %}
 			
 			</div>

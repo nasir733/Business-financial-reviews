@@ -48,16 +48,117 @@
 			<div class="row">
 				<div class="col-lg-8">
 					{% for x in reviews %}
-					<div class="review_card">
+					<!-- /review_card -->
+					{% if x.review == None %}
+					<div class="review_card {{x.id}}">
 						<div class="row">
 							<div class="col-md-2 user_info">
-								<a href="{% url 'business' business_id=x.business.id page=1 %}">
-								{% if x.business.image %}
-								<figure><img src="{{x.business.image.url}}" alt=""></figure>
-								{% else %}
-								<figure><img src="img/avatar4.jpg" alt=""></figure>
-								{% endif %}</a>
-								<h5>Business : {{x.business.name}}</h5>
+								
+								<figure>
+									{% if x.user.profile_pic %}
+									<img src="{{x.user.profile_pic.url}}" alt="">
+									{% else %}
+										<img src="{% static 'main/images/user_avatar.png' %}" alt="">
+									{% endif %}
+								</figure>
+								<h5>{{x.user.username}}</h5>
+							</div>
+							<div class="col-md-10 review_content">
+								<div class="clearfix add_bottom_15">
+									
+									<em>Published {{x.created_at}}</em>
+								</div>
+								
+								<ul>
+									<span class="rating" style="transform: scale(1.5);">
+										{% if x.rating == 1 %}
+										
+										<i class="icon_star"></i>
+										{% elif x.rating == 2 %}
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										{% elif x.rating == 3 %}
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										{% elif x.rating == 4 %}
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										{% elif x.rating == 5 %}
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										{% elif x.rating > 5 %}
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										<i class="icon_star"></i>
+										{% endif %}
+		
+		
+										<em>{{x.rating}}/5</em></span>
+									<li><a onclick="Reply({{x.id}})"><i class="icon-reply-3"></i> Reply</a></li>
+								</ul>
+								<form method="post" action="{% url 'add_comment' x.id %}" id="replyform {{x.id}}" style="display: none;">
+									{% csrf_token %}
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label>Your Review</label>
+												<input class="form-control" id="review{{x.id}}" name="comment" ></input>
+											</div>
+										</div>
+									</div>
+									
+								</form>
+							</div>
+						</div>
+						<div style="padding-left: 3rem;">
+							{% for z in x.reviewcomment_set.all %}
+						<div class="row reply">
+							<div class="col-md-1 user_info">
+								<figure>
+								{% if z.user.profile_pic %}
+									<img src="{{z.user.profile_pic.url}}" alt="">
+									{% else %}
+										<img src="{% static 'main/images/user_avatar.png' %}" alt="">
+									{% endif %}</figure>
+							</div>
+							<div class="col-md-10">
+								
+								<div class="review_content">
+									<strong>Reply from {{z.user.username}}</strong>
+									<em>Published {{z.created_at}}</em>
+									<p>{{z.comment}}</p>
+								</div>
+							</div>
+							
+						</div>{% endfor %}
+
+						<!-- /row --></div>
+						
+						<!-- /row -->
+						<br/>
+					</div>
+					<!-- /review_card -->
+					{% else %}
+					<div class="review_card {{x.id}}">
+						<div class="row">
+							<div class="col-md-2 user_info">
+								
+								<figure>
+									{% if x.user.profile_pic %}
+									<img src="{{x.user.profile_pic.url}}" alt="">
+									{% else %}
+										<img src="{% static 'main/images/user_avatar.png' %}" alt="">
+									{% endif %}
+								</figure>
+								<h5>{{x.user.username}}</h5>
 							</div>
 							<div class="col-md-10 review_content">
 								<div class="clearfix add_bottom_15">
@@ -93,18 +194,28 @@
 		
 		
 										<em>{{x.rating}}/5</em></span>
-									
-									<em>Published: {{x.created_at}}</em>
+									<em>Published {{x.created_at}}</em>
 								</div>
 								<h4>"{{x.review}}"</h4>
 								<p>{{x.content}}</p>
 								<ul>
-									<li><a href="#0" class="btn_delete"><i class="icon-trash"></i>Delete</a></li>
-									<li><a href="#0"><i class="icon-edit-3"></i> Edit</a></li>
+									
+									<li><a onclick="Reply({{x.id}})"><i class="icon-reply-3"></i> Reply</a></li>
 								</ul>
+								<form method="post" action="{% url 'add_comment' x.id %}" id="replyform {{x.id}}" style="display: none;">
+									{% csrf_token %}
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label>Your Review</label>
+												<input class="form-control" id="review{{x.id}}" name="comment" ></input>
+											</div>
+										</div>
+									</div>
+									
+								</form>
 							</div>
 						</div>
-						<!-- /row -->
 						<div style="padding-left: 3rem;">
 							{% for z in x.reviewcomment_set.all %}
 						<div class="row reply">
@@ -126,9 +237,14 @@
 							</div>
 							
 						</div>{% endfor %}
+
 						<!-- /row --></div>
+						
+						<!-- /row -->
+						<br/>
 					</div>
-					<!-- /review_card -->
+					{% endif %}
+					
 					{% endfor %}
 				</div>
 				<!-- /col -->
