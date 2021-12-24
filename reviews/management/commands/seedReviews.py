@@ -34,8 +34,8 @@ class Command(BaseCommand):
                 'business': businessProfiles,
                 'user': lambda x: random.choice(users),
 
-                'review': lambda x: " ".join(),
-                'content': lambda x: " ".join(),
+                'review': "",
+                'content': "",
                 'rating': lambda x: random.randint(3, 5),
 
                 # 'nickname': lambda x: reviews_seeder.faker.email(),
