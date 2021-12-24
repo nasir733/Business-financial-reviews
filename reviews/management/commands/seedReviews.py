@@ -31,7 +31,7 @@ class Command(BaseCommand):
         users = User.objects.all()
         if businessProfiles is not None:
             reviews_seeder.add_entity(Review, options.get("number"), {
-                'business': lambda x: random.choice(businessProfiles),
+                'business': businessProfiles,
                 'user': lambda x: random.choice(users),
 
                 'review': lambda x: " ".join(),
