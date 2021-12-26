@@ -19,6 +19,8 @@ class Command(BaseCommand):
         )
         parser.add_argument("--company", type=str, default='',
                             help="Which company do you want to seed?")
+        parser.add_argument("--rating", type=int, default=5,
+                            help="Rating amount?")
 
     def handle(self, *args, **options):
         print(options, '--------')
@@ -38,7 +40,7 @@ class Command(BaseCommand):
 
                 'review': None,
                 'content': None,
-                'rating': lambda x: random.randint(3, 5),
+                'rating': options.get('rating'),
 
                 # 'nickname': lambda x: reviews_seeder.faker.email(),
 
